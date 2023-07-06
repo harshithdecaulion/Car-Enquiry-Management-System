@@ -35,8 +35,8 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
 		<property name="username"
-			value="carenquirymanagement@gmail.com" />
-		<property name="password" value="mlfjnbftxcyyozdb" />
+			value="your_mail_id" />
+		<property name="password" value="app_generated_password" />
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.auth">true</prop>
