@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+http://www.springframework.org/schema/context  
+http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+
+	<context:component-scan
+		base-package="com.mvcpoc"></context:component-scan>
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+	<bean id="ds"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver"></property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/springDB?useSSL=false&amp;serverTimezone=UTC"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+
+
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username"
+			value="carenquirymanagement@gmail.com" />
+		<property name="password" value="mlfjnbftxcyyozdb" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="ds"></property>
+	</bean>
+
+	<bean id="carDao" class="com.mvcpoc.dao.CarDao">
+		<property name="template" ref="jt" />
+		<property name="mailSender" ref="mailSender" />
+	</bean>
+
+
+
+	<bean id="enquiryManagerDao"
+		class="com.mvcpoc.dao.EnquiryManagerDao">
+		<property name="template" ref="jt"></property>
+	</bean>
+
+	<bean id="userDao" class="com.mvcpoc.dao.UserDao">
+		<property name="template" ref="jt"></property>
+	</bean>
+
+	<bean id="orderDao" class="com.mvcpoc.dao.OrderDao">
+		<property name="template" ref="jt"></property>
+	</bean>
+
+	<bean id="quotationDao" class="com.mvcpoc.dao.QuotationDao">
+		<property name="template" ref="jt"></property>
+	</bean>
+
+		
+
+</beans>
